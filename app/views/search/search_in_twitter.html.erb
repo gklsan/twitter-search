@@ -1,0 +1,32 @@
+<%= link_to "Home", root_path, class: "btn btn-default" %>
+
+<%= "Result not found!!!" if @result.empty? %>
+<!-- <ul class="list-group">
+	<%# @result.each do |r| %>
+		<li class="list-group-item"><%#= r.attrs[:retweeted_status][:text] rescue r.text %></li>
+	<%# end %>
+</ul> -->
+
+<div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Who tweeted </th>
+          <th>Tweet</th>
+        </tr>
+      </thead>
+      <tbody>
+      	<% @result.each.with_index do |r, idx| %>
+	      	<tr>
+	          <td><%= idx + 1 %></td>
+	          <td><%= r.user.name %></td>
+	          <% require 'rails_autolink' %>
+	          <% text = (r.attrs[:retweeted_status][:text] rescue r.text) %>
+	          <td><%= auto_link(text) %></td>
+	        </tr>
+		<% end %>        
+      </tbody>
+    </table>
+  </div>
+</div>
